@@ -14,11 +14,40 @@
     <packaging>maven-plugin</packaging>
 
     <name>ConstGen Maven Plugin</name>
+    <description>Simple constant util file generation based on compile time maven properties (e.g. project version)</description>
+    <url>https://github.com/mktiti/ConstGeneratorMavenPlugin</url>
 
+    <inceptionYear>2019</inceptionYear>
 
+    <scm>
+        <connection>scm:git:https://github.com/mktiti/ConstGeneratorMavenPlugin.git</connection>
+        <url>https://github.com/mktiti/ConstGeneratorMavenPlugin</url>
+    </scm>
 
-    <!-- FIXME change it to the project's website -->
-    <!-- <url>http://www.example.com</url> -->
+    <issueManagement>
+        <url>https://github.com/mktiti/ConstGeneratorMavenPlugin/issues</url>
+        <system>Github Issues</system>
+    </issueManagement>
+
+    <licenses>
+        <license>
+            <name>GNU General Public License v3.0</name>
+            <url>https://www.gnu.org/licenses/gpl-3.0.html</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <organization>
+        <name>hu.mktiti</name>
+        <url>https://github.com/mktiti/</url>
+    </organization>
+
+    <developers>
+        <developer>
+            <name>Krisztián Márkus</name>
+            <email>markuskrisztian1@gmail.com</email>
+        </developer>
+    </developers>
 
     <prerequisites>
         <maven>${maven.version}</maven>
@@ -138,6 +167,7 @@
                 <executions>
                     <execution>
                         <id>mojo-descriptor</id>
+                        <phase>package</phase>
                         <goals>
                             <goal>descriptor</goal>
                         </goals>
@@ -181,6 +211,34 @@
                         <include>**/*IntegrationTest*.java</include>
                     </includes>
                 </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                            <goal>test-jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.7.1</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <version>3.0.0</version>
             </plugin>
         </plugins>
     </build>
