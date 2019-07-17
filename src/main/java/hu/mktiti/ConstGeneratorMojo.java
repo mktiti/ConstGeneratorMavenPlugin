@@ -66,12 +66,12 @@ public class ConstGeneratorMojo extends AbstractMojo {
      *
      *  Defaults to ProjectInfo.
      */
-    @Parameter(property = "classname", defaultValue = "ProjectInfo")
+    @Parameter(property = "classname", defaultValue = "ProjectInfo", required = true)
     private String className;
 
     /**
      *  Visibility of the generated class/objects and its members.
-     *  One of PUBLIC, PROTECTED, PACKAGE_PRIVATE, or DEFAULT
+     *  One of PUBLIC, PACKAGE_PRIVATE, or DEFAULT
      *
      *  On java, the modifiers match one-to-one, with kotlin PACKAGE_PRIVATE matches to internal.
      *
@@ -79,24 +79,23 @@ public class ConstGeneratorMojo extends AbstractMojo {
      *
      *  Defaults to PUBLIC.
      */
-    @Parameter(property = "visibility", defaultValue = "PUBLIC")
+    @Parameter(property = "visibility", defaultValue = "PUBLIC", required = true)
     private PrinterConf.Visibility visibility;
 
     /**
      *  Tells the generator to generate static getter methods rather than static fields.
      *  On kotlin, when accessed from kotlin code it doesn't matter, but when accessed from java the effect is the same
-     *  (i.e static getters of methods are generated).
+     *  (i.e static getters of static fields are generated).
      *
      *  Defaults to false (fields).
      */
-    @Parameter(property = "useGetters", defaultValue = "false")
+    @Parameter(property = "useGetters", defaultValue = "false", required = true)
     private boolean useGetters;
 
     /**
      *  Key-Value list of values to be made into constant fields. Empty values will be converted to empty strings.
-     *  Keys must be valid identifiers for he given language (e.g. no hard keywords, no starting with digit, etc.).
+     *  Keys must be valid identifiers for the given language (e.g. no hard keywords, no starting with digit, etc.).
      *
-     *  @paraeter
      */
     @Parameter(property = "values")
     private Map<String, String> values;
@@ -107,7 +106,7 @@ public class ConstGeneratorMojo extends AbstractMojo {
      *
      *  Defaults to true.
      */
-    @Parameter(property = "addVersion", defaultValue = "true")
+    @Parameter(property = "addVersion", defaultValue = "true", required = true)
     private boolean addVersion;
 
     /**
