@@ -67,25 +67,15 @@ final class JavaPrinter implements ConstPrinter {
     }
 
     private static String memberVisibilityString(final PrinterConf.Visibility visibility) {
-        switch (visibility) {
-            case PUBLIC: return "public ";
-            case PROTECTED: return "protected ";
-            default: return "";
+        if (visibility == PrinterConf.Visibility.PUBLIC) {
+            return "public ";
         }
-    }
-
-    private static String getGetterName(final String name) {
-        final String start = "get" + Character.toUpperCase(name.charAt(0));
-        if (name.length() == 1) {
-            return start;
-        } else {
-            return start + name.substring(1);
-        }
+        return "";
     }
 
     private static String getterString(final String name, final String value, final PrinterConf.Visibility visibility) {
         return
-            "\t" + memberVisibilityString(visibility) + "static String " + getGetterName(name) + "() {\n" +
+            "\t" + memberVisibilityString(visibility) + "static String " + Util.getGetterName(name) + "() {\n" +
             "\t\treturn " + Util.escapeString(value) + ";\n" +
             "\t}\n";
     }

@@ -42,7 +42,7 @@ final class KotlinPrinter implements ConstPrinter {
             target.println();
         }
 
-        target.print(topLevelVisibilityString(conf.visibility));
+        target.print(visibilityString(conf.visibility));
         target.print("object ");
         target.print(conf.className);
         target.println(" {\n");
@@ -55,20 +55,24 @@ final class KotlinPrinter implements ConstPrinter {
 
     }
 
-    private static String topLevelVisibilityString(final PrinterConf.Visibility visibility) {
+    private static String visibilityString(final PrinterConf.Visibility visibility) {
         return (visibility == PrinterConf.Visibility.PACKAGE_PRIVATE) ? "internal " : "public ";
     }
 
-    private static String memberVisibilityString(final PrinterConf.Visibility visibility) {
-        switch (visibility) {
-            case PACKAGE_PRIVATE: return "internal ";
-            case PROTECTED: return "protected ";
-            default: return "";
+    private String propertyString(final String name, final String value) {
+        if (conf.useGetters) {
+            return propertyGetterString(name, value);
+        } else {
+            return propertyFieldString(name, value);
         }
     }
 
-    private String propertyString(final String name, final String value) {
-        return "\t" + (conf.useGetters ? "@JvmStatic " : "@JvmField ")
-                + memberVisibilityString(conf.visibility) + "val " + name + ": String = " + Util.escapeString(value) + "\n";
+    private String propertyFieldString(final String name, final String value) {
+        return "\t@JvmField " + visibilityString(conf.visibility)  + "val " + name + ": String = " + Util.escapeString(value) + "\n";
+    }
+
+    private String propertyGetterString(final String name, final String value) {
+        return "\t@JvmStatic @get:JvmName(\"" + Util.getGetterName(name) + "\") "
+                + visibilityString(conf.visibility)  + "val " + name + ": String = " + Util.escapeString(value) + "\n";
     }
 }

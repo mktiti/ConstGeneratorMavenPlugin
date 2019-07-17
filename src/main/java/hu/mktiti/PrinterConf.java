@@ -3,7 +3,7 @@ package hu.mktiti;
 final class PrinterConf {
 
     enum Visibility {
-        PUBLIC, PROTECTED, PACKAGE_PRIVATE, DEFAULT
+        PUBLIC, PACKAGE_PRIVATE, DEFAULT
     }
 
     final String packageName;

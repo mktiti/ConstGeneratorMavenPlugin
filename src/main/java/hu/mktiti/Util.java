@@ -108,4 +108,13 @@ final class Util {
         return true;
     }
 
+    static String getGetterName(final String name) {
+        final String start = "get" + Character.toUpperCase(name.charAt(0));
+        if (name.length() == 1) {
+            return start;
+        } else {
+            return start + name.substring(1);
+        }
+    }
+
 }
