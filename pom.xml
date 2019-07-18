@@ -58,6 +58,8 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.version>3.3.9</maven.version>
+
+        <gpg.skip>true</gpg.skip>
     </properties>
 
     <distributionManagement>
@@ -279,6 +281,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-gpg-plugin</artifactId>
                 <version>1.5</version>
+
                 <executions>
                     <execution>
                         <id>sign-artifacts</id>
