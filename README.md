@@ -11,7 +11,7 @@ Useful for dynamically including artifact version, build time or other build dep
 To enable constant generation, add the following plugin execution to your build config (build > plugins)
 ```
 <plugin>
-     <groupId>com.github.mktiti</groupId>
+     <groupId>com.mktiti</groupId>
      <artifactId>const-generator-maven-plugin</artifactId>
      <version>1.1-SNAPSHOT</version>
     
