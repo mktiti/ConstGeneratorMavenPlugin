@@ -35,7 +35,7 @@ Code generation happens on the `generate` goal, invoke it with `mvn const-genera
 
 To generate automatically, add the goal execution to the `generate-sources` phase (as seen above).
 
-Also add the output directory (`${project.build.directory}/src/main/{java/kotlin}` by default, usually target/src/main/{java/kotlin}) to your sources.
+Also add the output directory (`${project.build.directory}/src/main/{java/kotlin}` by default, usually `target/src/main/{java/kotlin}`) to your sources.
 E.g. with the kotlin compiler: 
 
 ```
@@ -262,7 +262,7 @@ Config:
 </configuration>
 ```
 
-Output (`gen/main/java/my/project/generated/MetaInfo.java`):
+Output (`gen/java/my/project/generated/MetaInfo.java`):
 ```java
 package my.project.generated;
 
