@@ -3,17 +3,17 @@
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![Build Status](https://travis-ci.org/mktiti/ConstGeneratorMavenPlugin.svg?branch=master)](https://travis-ci.org/mktiti/ConstGeneratorMavenPlugin)
 
-A simple maven plugin to generate util classes or objects containing compile time values.
+A simple maven plugin to generate util classes or objects containing compile time values for Java, Kotlin, and other JVM languages.
 Useful for dynamically including artifact version, build time or other build dependent values in your source for easy access.
 
 ## Adding to your maven project
 
-To enable constant generation, add the following plugin execution to your build config (build > plugins)
+To enable constant generation, add the following plugin execution to your build config (build > plugins):
 ```
 <plugin>
      <groupId>com.mktiti</groupId>
      <artifactId>const-generator-maven-plugin</artifactId>
-     <version>1.1-SNAPSHOT</version>
+     <version>1.1</version>
     
      <configuration>
          <packageName>my.project.generated</packageName>
@@ -35,16 +35,50 @@ Code generation happens on the `generate` goal, invoke it with `mvn const-genera
 
 To generate automatically, add the goal execution to the `generate-sources` phase (as seen above).
 
-Also add the output directory (`${project.build.directory}/src/main/{java/kotlin}` by default, usually `target/src/main/{java/kotlin}`) to your sources.
-E.g. with the kotlin compiler: 
+Also add the output directory (`${project.build.directory}/src/main/{java/kotlin}` by default, usually `target/src/main/{java/kotlin}`) to your sources, and optionally mark the generated directory as 'Generated sources' or similar in your IDE.
 
+Java compiler sample config (build > plugins):
 ```
-<configuration>
-    <sourceDirs>
-        <sourceDir>${project.basedir}/src/main/kotlin</sourceDir>
-        <sourceDir>${project.build.directory}/src/main/kotlin</sourceDir>
-    </sourceDirs>
-</configuration>
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-compiler-plugin</artifactId>
+    <version>3.8.1</version>
+    
+    <configuration>
+        <generatedSourcesDirectory>${project.build.directory}/src/main/java</generatedSourcesDirectory>
+	<!-- Other configs -->
+    </configuration>
+    
+    <!-- Executions, etc. -->
+</plugin>
+```
+
+Kotlin compiler sample config (build > plugins):
+```
+<plugin>
+    <groupId>org.jetbrains.kotlin</groupId>
+    <artifactId>kotlin-maven-plugin</artifactId>
+    <version>${kotlin.version}</version>
+    
+    <configuration>
+        <sourceDirs>
+            <sourceDir>${project.basedir}/src/main/kotlin</sourceDir>
+	    <sourceDir>${project.build.directory}/src/main/kotlin</sourceDir>
+        </sourceDirs>
+	<!-- Other configs -->
+    </configuration>
+    
+    <!-- Executions, etc. -->
+</plugin>
+```
+
+Now you can access the generated properties from your code. (Version is added by default)
+```
+// Java
+System.out.println("Running version: " + ProjectInfo.version); // Running version: 1.0-SNAPSHOT
+
+// Kotlin
+println("Running version: ${ProjectInfo.version}") // Running version: 1.0-SNAPSHOT
 ```
 
 Multiple executions are supported for multiple file generation (each with their own config in the `execution` tag).
