@@ -2,6 +2,7 @@
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![Build Status](https://travis-ci.org/mktiti/ConstGeneratorMavenPlugin.svg?branch=master)](https://travis-ci.org/mktiti/ConstGeneratorMavenPlugin)
+[![Maven Central](https://img.shields.io/maven-central/v/com.mktiti/const-generator-maven-plugin.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22com.mktiti%22%20AND%20a:%22const-generator-maven-plugin%22)
 
 A simple maven plugin to generate util classes or objects containing compile time values for Java, Kotlin, and other JVM languages.
 Useful for dynamically including artifact version, build time or other build dependent values in your source for easy access.
