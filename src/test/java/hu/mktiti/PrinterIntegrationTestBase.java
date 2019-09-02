@@ -96,9 +96,9 @@ abstract class PrinterIntegrationTestBase {
         if (useGetters) {
             for (String getterName : Arrays.asList("getVersion", "getFoo")) {
                 assertTrue(getterName + " getter visibility modifier error",
-                        isMemberModifierValid(visibility, resClass.getDeclaredMethod("getVersion").getModifiers()));
+                        isMemberModifierValid(visibility, resClass.getDeclaredMethod(getterName).getModifiers()));
                 assertTrue(getterName + " getter static modifier error",
-                        Modifier.isStatic(resClass.getDeclaredMethod("getVersion").getModifiers()));
+                        Modifier.isStatic(resClass.getDeclaredMethod(getterName).getModifiers()));
             }
         } else {
             for (String fieldName : Arrays.asList("version", "foo")) {
